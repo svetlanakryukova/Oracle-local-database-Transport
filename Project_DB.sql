@@ -2,7 +2,7 @@
 --Project Data Bases. Kryukova Svetlana
 
 
---PART I/ create tables and  data to insert :
+--PART I/ create tables and put data to insert :
 
 --1. table City:
 create table city (city_id number(3) constraint Pk_city_id primary key,city_name varchar2(20));
@@ -78,7 +78,7 @@ insert into flight values (115,	7,	5,	100,	101, to_date('14-nov-2015', 'DD-MONTH
 
 
 --1) Type the SQL command that displays the description and the capacity of the AIRBUS planes.
---   (Plane’s description  that starts with A is AIRBUS, B is BOEING,C is CONCORDE)
+--   (Planeâ€™s description  that starts with A is AIRBUS, B is BOEING,C is CONCORDE)
 select pla_desc, max_passenger from plane where pla_desc like 'A%';
 select pla_desc, max_passenger from plane where pla_desc like 'B%';
 select pla_desc, max_passenger from plane where pla_desc like 'C%';
@@ -108,7 +108,7 @@ select pilot.pilot_id, pilot.last_name, pilot.first_name, plane.pla_desc
 from pilot, plane, flight where pilot.pilot_id = flight.pilot_id and plane.pla_id = flight.pla_id and plane.pla_desc like 'B%';
 
 --6) Type the SQL command that displays the pilots (id and name) who earn the 
---   same salary as PETERS’s or LAHRIRE’s salary. (PETER and LAHRIRE are not included)
+--   same salary as PETERSâ€™s or LAHRIREâ€™s salary. (PETER and LAHRIRE are not included)
 
 select pilot_id, last_name, salary from pilot where salary in (select salary from pilot where last_name = 'PETERS' or last_name = 'LAHRIRE')
 and Last_name!='PETERS' and last_name!='LAHRIRE';
@@ -143,7 +143,7 @@ from flight join plane on flight.pla_id = plane.pla_id join city c_dep on flight
 create view V1_PILOT (pilot_id, last_name, first_name) as select last_name, first_name, count(pilot.pilot_id) from pilot 
        where pilot.pilot_id not in (select flight.pilot_id from flight) group by last_name, first_name; 
 
---12) Create a view which returns the pilot’s id, name, salary as well as the plane’s description that he pilots.
+--12) Create a view which returns the pilotâ€™s id, name, salary as well as the planeâ€™s description that he pilots.
 
 create or REPLACE view V2_PILOT as select flight.pilot_id, last_name, first_name, salary, pla_desc from pilot 
 join flight on pilot.pilot_id = flight.pilot_id
